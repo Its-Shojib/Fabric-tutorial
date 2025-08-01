@@ -1,6 +1,7 @@
-import { Canvas, Circle, Rect } from 'fabric';
+import { Canvas, Circle, Rect, Triangle } from 'fabric';
 import { useEffect, useRef, useState } from 'react';
 import { FaCircle } from 'react-icons/fa';
+import { IoTriangle } from 'react-icons/io5';
 import { PiRectangleFill } from 'react-icons/pi';
 
 const Home = () => {
@@ -18,9 +19,24 @@ const Home = () => {
             });
             canvas.add(circle);
             canvas.renderAll();
-        }}
+        }
+    }
 
-        const addRectangle = () => {
+    const addTriangle = () => {
+        if (canvas) {
+            const triangle = new Triangle({
+                width: 100,
+                height: 100,
+                fill: 'green',
+                left: 150,
+                top: 150,
+            });
+            canvas.add(triangle);
+            canvas.renderAll();
+        }
+    }
+
+    const addRectangle = () => {
         if (canvas) {
             const rectangle = new Rect({
                 fill: 'blue',
@@ -31,11 +47,12 @@ const Home = () => {
             });
             canvas.add(rectangle);
             canvas.renderAll();
-        }}
+        }
+    }
 
     useEffect(() => {
-        if(canvasRef.current){
-            const initCanvas = new Canvas (canvasRef.current, {
+        if (canvasRef.current) {
+            const initCanvas = new Canvas(canvasRef.current, {
                 width: 500,
                 height: 500,
             });
@@ -55,8 +72,10 @@ const Home = () => {
             <div className='mb-4 my-16 w-32 flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md gap-4'>
                 <PiRectangleFill className='text-3xl' onClick={addRectangle} />
                 <FaCircle className='text-3xl' onClick={addCircle} />
+                <IoTriangle className='text-3xl' onClick={addTriangle} />
+
             </div>
-            <canvas  ref={canvasRef} className="border-2 z-20" />
+            <canvas ref={canvasRef} className="border-2 z-20" />
         </div>
     );
 };
